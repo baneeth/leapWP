@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Leap IELTS{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>User Profile</h2>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+        <div>
+            <h3>Account Information</h3>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Member Since:</strong> {{ user.created_at.strftime('%Y-%m-%d') if user.created_at else 'N/A' }}</p>
+        </div>
+
+        <div>
+            <h3>IELTS Goals</h3>
+            <p><strong>Target Score:</strong> {{ user.target_score }}</p>
+            <p><strong>Current Level:</strong> {{ user.current_level|default(0.0, true)|round(1) }}</p>
+            <p><strong>Timeline:</strong> {{ user.preparation_timeline.value if user.preparation_timeline else 'N/A' }}</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <h3>Skill Levels</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div>
+                <strong>Reading</strong>
+                <div style="background: #e0e0e0; border-radius: 4px; height: 20px; margin-top: 0.5rem; overflow: hidden;">
+                    <div style="background: #667eea; height: 100%; width: {{ (user.reading_level / 9 * 100)|int }}%;"></div>
+                </div>
+                <small>{{ user.reading_level|round(1) }}/9.0</small>
+            </div>
+
+            <div>
+                <strong>Writing</strong>
+                <div style="background: #e0e0e0; border-radius: 4px; height: 20px; margin-top: 0.5rem; overflow: hidden;">
+                    <div style="background: #667eea; height: 100%; width: {{ (user.writing_level / 9 * 100)|int }}%;"></div>
+                </div>
+                <small>{{ user.writing_level|round(1) }}/9.0</small>
+            </div>
+
+            <div>
+                <strong>Listening</strong>
+                <div style="background: #e0e0e0; border-radius: 4px; height: 20px; margin-top: 0.5rem; overflow: hidden;">
+                    <div style="background: #667eea; height: 100%; width: {{ (user.listening_level / 9 * 100)|int }}%;"></div>
+                </div>
+                <small>{{ user.listening_level|round(1) }}/9.0</small>
+            </div>
+
+            <div>
+                <strong>Speaking</strong>
+                <div style="background: #e0e0e0; border-radius: 4px; height: 20px; margin-top: 0.5rem; overflow: hidden;">
+                    <div style="background: #667eea; height: 100%; width: {{ (user.speaking_level / 9 * 100)|int }}%;"></div>
+                </div>
+                <small>{{ user.speaking_level|round(1) }}/9.0</small>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <h3>Engagement Stats</h3>
+        <p><strong>Total Points:</strong> {{ user.total_points }}</p>
+        <p><strong>Total Activities:</strong> {{ user.total_activities }}</p>
+        <p><strong>Current Streak:</strong> {{ user.current_streak }} days</p>
+        <p><strong>Longest Streak:</strong> {{ user.longest_streak }} days</p>
+        <p><strong>Last Activity:</strong> {{ user.last_activity_date.strftime('%Y-%m-%d %H:%M') if user.last_activity_date else 'Never' }}</p>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <a href="{{ url_for('dashboard.index') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

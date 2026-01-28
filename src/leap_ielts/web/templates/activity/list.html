@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Activities - Leap IELTS{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Practice Activities</h2>
+    <p style="color: #666; margin-top: 1rem;">
+        Browse and complete IELTS practice activities to improve your skills.
+    </p>
+
+    <div style="margin-top: 2rem;">
+        <p class="text-muted" style="text-align: center;">
+            Activity system coming soon...
+        </p>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <a href="{{ url_for('dashboard.index') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

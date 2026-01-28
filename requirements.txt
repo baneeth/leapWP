@@ -1,0 +1,14 @@
+Flask==3.1.2
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.1.0
+Flask-Login==0.6.3
+SQLAlchemy==2.0.46
+psycopg2-binary==2.9.9
+python-dotenv==1.2.1
+click==8.2.1
+rich==14.3.1
+questionary==2.1.1
+pydantic==2.11.7
+APScheduler==3.11.2
+Werkzeug==3.1.4
+wcwidth==0.2.13

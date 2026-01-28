@@ -1,0 +1,124 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leap-ielts"
+version = "0.1.0"
+description = "Professional IELTS preparation engagement system with CLI and web interfaces"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Student Developer", email = "dev@leapielts.local"}
+]
+
+dependencies = [
+    # Web Framework
+    "Flask>=3.0.0",
+    "Flask-SQLAlchemy>=3.1.0",
+    "Flask-Migrate>=4.0.0",
+    "Flask-Login>=0.6.3",
+    "Jinja2>=3.1.0",
+
+    # Database
+    "SQLAlchemy>=2.0.0",
+
+    # CLI
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "questionary>=2.0.0",
+
+    # Configuration
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+
+    # Scheduling
+    "APScheduler>=3.10.0",
+
+    # Utilities
+    "werkzeug>=3.0.0",
+    "wcwidth>=0.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    # Testing
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.11.0",
+    "pytest-flask>=1.2.0",
+
+    # Code Quality
+    "black>=23.10.0",
+    "flake8>=6.1.0",
+    "pylint>=2.17.0",
+    "mypy>=1.5.0",
+    "types-setuptools",
+
+    # Development
+    "faker>=20.0.0",
+    "ipython>=8.15.0",
+]
+
+[tool.setuptools]
+packages = ["leap_ielts"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "W503"]
+exclude = [".git", "__pycache__", ".venv", "build", "dist"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_any_generics = false
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=src/leap_ielts --cov-report=html --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src/leap_ielts"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

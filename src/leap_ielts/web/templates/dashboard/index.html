@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Leap IELTS{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <p style="margin-top: 1rem; color: #666;">
+        Your IELTS preparation journey starts here. Track your progress, complete daily goals, and build consistent learning habits.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div class="card" style="padding: 1.5rem;">
+            <h3>Current Level</h3>
+            <p style="font-size: 2.5rem; color: #667eea; font-weight: bold;">{{ user.current_level|default(0.0, true)|round(1) }}</p>
+            <p class="text-muted">Target: {{ user.target_score }}</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+            <h3>Current Streak</h3>
+            <p style="font-size: 2.5rem; color: #667eea; font-weight: bold;">{{ user.current_streak }}</p>
+            <p class="text-muted">Longest: {{ user.longest_streak }}</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+            <h3>Total Points</h3>
+            <p style="font-size: 2.5rem; color: #667eea; font-weight: bold;">{{ user.total_points }}</p>
+            <p class="text-muted">Activities: {{ user.total_activities }}</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <h3>Quick Links</h3>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+            <a href="{{ url_for('activity.daily_goal') }}" class="btn btn-primary">Today's Goal</a>
+            <a href="{{ url_for('activity.list_activities') }}" class="btn btn-secondary">Browse Activities</a>
+            <a href="{{ url_for('dashboard.profile') }}" class="btn btn-secondary">My Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
