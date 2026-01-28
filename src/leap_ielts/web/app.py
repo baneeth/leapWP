@@ -46,9 +46,8 @@ def create_app(config: Config = None) -> Flask:
         with app.app_context():
             return db.session.query(User).get(int(user_id))
 
-    # Create tables
-    with app.app_context():
-        db.create_all()
+    # Tables already created by setup_db.py script
+    # Skip automatic creation to avoid path issues
 
     # Register blueprints
     from leap_ielts.web.blueprints import auth_bp, dashboard_bp, activity_bp
