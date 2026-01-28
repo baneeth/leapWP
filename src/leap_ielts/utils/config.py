@@ -19,16 +19,10 @@ class Config:
     TESTING = False
 
     # Database
-    # Use absolute path for SQLite
-    _db_path = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-        "data",
-        "database",
-        "leap_ielts.db"
-    )
+    # Simple relative path for SQLite
     _database_url = os.getenv(
         "DATABASE_URL",
-        f"sqlite:///{_db_path.replace(chr(92), '/')}"  # Convert backslashes to forward slashes
+        "sqlite:///./data/database/leap_ielts.db"
     )
     # Fix PostgreSQL URL format for SQLAlchemy 2.x
     if _database_url.startswith("postgres://"):
