@@ -46,9 +46,14 @@ def create_app(config: Config = None) -> Flask:
         with app.app_context():
             return db.session.query(User).get(int(user_id))
 
-    # Create tables
+    # Create tables (with error handling for initial deployment)
     with app.app_context():
-        db.create_all()
+        try:
+            db.create_all()
+            logger.info("Database tables created successfully")
+        except Exception as e:
+            logger.warning(f"Could not create database tables on startup: {e}")
+            logger.info("Database tables will be created when /admin/init-db is called")
 
     # Register blueprints
     from leap_ielts.web.blueprints import auth_bp, dashboard_bp, activity_bp
